@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vitals Monitor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta http-equiv="refresh" content="2"> <!-- Refresh the page every 2 seconds -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .alert {
+            animation: glow 1s ease-in-out infinite alternate;
+            color: red; /* Ensure text is red when alerting */
+        }
+        .normal {
+            color: #333;
+        }
+        .icon {
+            font-size: 1.2em;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px red;
+            }
+            to {
+                text-shadow: 0 0 20px red;
+            }
+        }
+        #latest {
+            margin-bottom: 40px;
+        }
+        #history {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vitals Monitor Dashboard</h1>
+    <div id="latest">
+        <h2>Current Reading</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th><i class="fas fa-thermometer-half"></i> Temperature (°C)</th>
+                    <th><i class="fas fa-heartbeat"></i> Pulse (BPM)</th>
+                    <th><i class="fas fa-clock"></i> Time of Reading</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="{{ 'alert' if latest_monitor.temp_alert == 'yes' else 'normal' }}">
+                        <i class="fas fa-thermometer-half icon"></i> {{ latest_monitor.avg_temp }}
+                    </td>
+                    <td class="{{ 'alert' if latest_monitor.pulse_alert == 'yes' else 'normal' }}">
+                        <i class="fas fa-heartbeat icon"></i> {{ latest_monitor.avg_pulse }}
+                    </td>
+                    <td>{{ latest_monitor.timestamp }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="history">
+        <h2>Historical Records</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th><i class="fas fa-thermometer-half"></i> Temperature (°C)</th>
+                    <th><i class="fas fa-heartbeat"></i> Pulse (BPM)</th>
+                    <th><i class="fas fa-clock"></i> Time of Reading</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for monitor in monitors %}
+                <tr>
+                    <td class="{{ 'alert' if monitor.temp_alert == 'yes' else 'normal' }}">
+                        <i class="fas fa-thermometer-half icon"></i> {{ monitor.avg_temp }}
+                    </td>
+                    <td class="{{ 'alert' if monitor.pulse_alert == 'yes' else 'normal' }}">
+                        <i class="fas fa-heartbeat icon"></i> {{ monitor.avg_pulse }}
+                    </td>
+                    <td>{{ monitor.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
