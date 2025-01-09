@@ -10,11 +10,11 @@ float temperature;
 
 // SERVER INFORMATION
 // CHANGE THE IP TO THE ONE SHOWN THEN THE SERVER IS STARTED
-#define SERVER_IP "http://192.168.0.100:5000"
+#define SERVER_IP ""
 
 // WIFI INFORMATION
-#define WIFI_SSID "LIB-2240343"
-#define WIFI_PASSWORD "qsx8wxmnVnjp"
+#define WIFI_SSID ""
+#define WIFI_PASSWORD ""
 
 // SERVER ENDPOINTS
 #define MONITOR_ENDPOINT "/monitor"
